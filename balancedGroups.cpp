@@ -23,6 +23,32 @@ Assignment balancedGroups(std::vector<int> const &birthdays) {
     vector<int> va;
     vector<int> vb;
 
+    int target = vecSum(sortedBirthdays) / 2;
+    int smallest = sortedBirthdays[0];
+    //cout << "Target: " << target << endl;
+
+    for(int i = sortedBirthdays.size() - 1; i >= 0; i--){
+        if(vecSum(va) + sortedBirthdays[i] <= target){
+            va.push_back(sortedBirthdays[i]);
+            sortedBirthdays[i] = 0;
+        }
+    }
+
+    for(int i = 0; i < sortedBirthdays.size(); i++){
+        if(sortedBirthdays[i] != 0){
+            vb.push_back(sortedBirthdays[i]);
+        }
+    }
+
+
+    int diff = abs(vecSum(va) - vecSum(vb));
+
+    //cout << "Difference: " << diff << endl;
+	Assignment assignment1 = Assignment(diff, va, vb);
+
+    va = {};
+    vb = {};
+
     for(int i = sortedBirthdays.size() - 1; i >= 0; i--){
         if(vecSum(va) < vecSum(vb)){
             va.push_back(sortedBirthdays[i]);
@@ -30,12 +56,17 @@ Assignment balancedGroups(std::vector<int> const &birthdays) {
         else{
             vb.push_back(sortedBirthdays[i]);
         }
-    } 
+    }
 
-    int diff = abs(vecSum(va) - vecSum(vb));
+    diff = abs(vecSum(va) - vecSum(vb));
+    Assignment assignment2 = Assignment(diff,va,vb);
 
-    cout << "Difference: " << diff << endl;
-	return Assignment(diff, va, vb); // Don't forget to change this
+    if(assignment1.diff < assignment2.diff){
+        return assignment1;
+    }
+    return assignment2;
+
+    
 }
 
 /* your helper function here if you have any */
@@ -45,8 +76,14 @@ Assignment balancedGroups(std::vector<int> const &birthdays) {
 
 int main(){
 
-    vector<int> myBirthdays = {2,7,12,16,18,20,22,25,28,30};
+    vector<int> myBirthdays = {3, 27, 4, 5, 20};
     Assignment myAss = balancedGroups(myBirthdays);
     myAss.printAssignment();
+
+    myBirthdays = {12, 2, 7, 30, 22, 20, 18, 16, 25, 28};
+    myAss = balancedGroups(myBirthdays);
+    myAss.printAssignment();
 }
+
+
 
