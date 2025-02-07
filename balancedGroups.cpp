@@ -1,5 +1,4 @@
 #include "balancedGroups.h"
-
 // your includes here
 #include <iostream>
 #include <algorithm>
@@ -31,9 +30,7 @@ Assignment balancedGroups(std::vector<int> const &birthdays) {
         else{
             vb.push_back(sortedBirthdays[i]);
         }
-    }
-
-    
+    } 
 
     int diff = abs(vecSum(va) - vecSum(vb));
 
@@ -44,13 +41,12 @@ Assignment balancedGroups(std::vector<int> const &birthdays) {
 /* your helper function here if you have any */
 
 
-/*
+
 
 int main(){
 
-    vector<int> myBirthdays = {31,1,1,1,1,1};
+    vector<int> myBirthdays = {2,7,12,16,18,20,22,25,28,30};
     Assignment myAss = balancedGroups(myBirthdays);
     myAss.printAssignment();
 }
 
-*/
